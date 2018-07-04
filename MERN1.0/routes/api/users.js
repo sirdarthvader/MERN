@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const key = require('../../config/keys');
+const passport = require('passport');
 
 
 // Load user model...
@@ -17,7 +20,7 @@ router.get('/test', (req, res) => {
 });
 
 //@route : /api/users/register
-//@desc: used for registering users ion database
+//@desc: used for registering users in database
 //@access: public
 router.post('/register', (req, res) => {
   User.findOne({ email: req.body.email })
@@ -52,7 +55,6 @@ router.post('/register', (req, res) => {
 //@route : /api/user/login
 //@desc: confirm user exists
 //@access: pucblic
-
 router.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -68,13 +70,29 @@ router.post('/login', (req, res) => {
       bcrypt.compare(password, user.password) 
         .then(isMatch => {
           if(isMatch) {
-            res.json({msg: "Success"})
+            //User matched.....
+            const payload = {id: user.id, name: user.name, avatar: user.avatar} // JWT Payload
+
+            //Sign Token....
+            jwt.sign(payload, key.secretOrKey, {expiresIn: 3600}, (err, token) => {
+              res.json({
+                success: true,
+                token: 'Bearer  ' + token
+              });
+            });
           } else {
             return res.status(404).json({password:'password incorrect'});
           }
-        })
+        });
       
-    })
-})
+    });
+});
+
+//@route : /api/users/current
+//@desc: used for returning current logged in user
+//@access: private
+router.get('/current', passport.authenticate('jwt', { session:false }), (req, res) => {
+  res.json( req.user );
+});
 
 module.exports = router;
