@@ -7,6 +7,9 @@ const key = require('../../config/keys');
 const passport = require('passport');
 
 
+//Load Input Validation...
+const validateRegisterInput = require('../../Validator/register');
+
 // Load user model...
 const User = require('../../models/User');
 
@@ -23,6 +26,13 @@ router.get('/test', (req, res) => {
 //@desc: used for registering users in database
 //@access: public
 router.post('/register', (req, res) => {
+  //Validate Input...
+  const {isValid, errors} = validateRegisterInput(req.body);
+
+  if(!isValid) {
+    return res.status(400).json (errors);
+  }
+
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (user) {
@@ -47,7 +57,7 @@ router.post('/register', (req, res) => {
               .then(user => res.json(user))
               .catch(err => console.log(err));
           }); 
-        } )
+        })
       }
     })
 });
