@@ -105,4 +105,7 @@ router.get('/current', passport.authenticate('jwt', { session:false }), (req, re
   res.json( req.user );
 });
 
+//@route: /api/users/current_session
+//@desc: used for general testing 
+
 module.exports = router;
