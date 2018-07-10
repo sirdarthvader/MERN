@@ -9,6 +9,7 @@ const passport = require('passport');
 
 //Load Input Validation...
 const validateRegisterInput = require('../../Validator/register');
+const validateLoginInput = require('../../Validator/login');
 
 // Load user model...
 const User = require('../../models/User');
@@ -23,7 +24,7 @@ router.get('/test', (req, res) => {
 });
 
 //@route : /api/users/register
-//@desc: used for registering users in database
+// @desc: used for registering users in database
 //@access: public
 router.post('/register', (req, res) => {
   //Validate Input...
