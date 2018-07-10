@@ -11,7 +11,7 @@ module.exports = function validateRegisterInput (data) {
   if (!validator.isLength(data.name, { min: 2, max: 30 })) {
     errors.name = "Name must be more than 2 characters and less than 3";
   }
-  if (!validator.isEmpty(data.name)) {
+  if (validator.isEmpty(data.name)) {
       errors.name = "name can not be empty";
   }
 
