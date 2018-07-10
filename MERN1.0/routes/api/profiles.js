@@ -8,7 +8,11 @@ const Profile = require('../../models/Profile')
 // Load user model
 const User = require('../../models/User')
 
-// @route : /api/profile/tes
+//Load input validation function
+const validateProfileInput = require('../../Validator/login');
+
+
+// @route : /api/profile/test
 // @desc: used for testing the profile route
 // @access: public
 router.get('/test', (req, res) => {
@@ -20,12 +24,13 @@ router.get('/test', (req, res) => {
 
 // @route : /api/profile/
 // @desc: get current user profile (GET)
-// @access: public
-router.get('/', passport.authenticate('jwt', { session: flase }), (req, res) => {
+// @access: private
+router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
 
     const errors = {};
 
     Profile.findOne({ user: req.body.id })
+    .populate('user', ['name', avatar])
     .then(profile => {
       if (!profile) {
         errors.noprofile = 'There is no such profile';
@@ -41,6 +46,14 @@ router.get('/', passport.authenticate('jwt', { session: flase }), (req, res) => 
 // @desc: create user profle (POST)
 // @access: private
 router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
+  
+  //Check input validation
+  const {isValid, errors} = validateProfileInput(res.body);
+  if(!isValid) {
+    // retirn any errors 
+    return res.status(404).json(errors);
+  }
+
   const profileFields = {};
   //Get user data 
   profileFields.user = req.user.id;
@@ -69,7 +82,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
       if(profile) {
         //Update
         Profile.findOneAndUpdate(
-          { user: req.user.id }.
+          { user: req.user.id },
           { $set: profileFields },
           { new: true }
         )

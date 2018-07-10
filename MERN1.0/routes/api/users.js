@@ -14,6 +14,9 @@ const validateLoginInput = require('../../Validator/login');
 // Load user model...
 const User = require('../../models/User');
 
+
+
+
 //@route: /api/users/test
 //@desc : used for testing users route
 //@access: public
@@ -23,9 +26,11 @@ router.get('/test', (req, res) => {
   });
 });
 
-//@route : /api/users/register
-// @desc: used for registering users in database
-//@access: public
+
+
+// @route : /api/users/register
+// @desc  : used for registering users in database
+// @access: public
 router.post('/register', (req, res) => {
   //Validate Input...
   const {isValid, errors} = validateRegisterInput(req.body);
@@ -63,10 +68,20 @@ router.post('/register', (req, res) => {
     })
 });
 
+
+
+
 //@route : /api/user/login
 //@desc: confirm user exists
 //@access: pucblic
 router.post('/login', (req, res) => {
+    // Validate Input...
+    const {isValid, errors} = validateLoginInput(req.body);
+
+    if(!isValid) {
+      return res.status(400).json (errors);
+    }
+
   const email = req.body.email;
   const password = req.body.password;
 
@@ -75,7 +90,8 @@ router.post('/login', (req, res) => {
     .then(user => {
       //check for user
       if(!user) {
-        return res.status(404).json({msg: "email not found"});
+        errors.email = "email not found"
+        return res.status(404).json(errors);
       }
       //check password
       bcrypt.compare(password, user.password) 
@@ -92,12 +108,17 @@ router.post('/login', (req, res) => {
               });
             });
           } else {
-            return res.status(404).json({password:'password incorrect'});
+            errors.password = "password is incorrect"
+            return res.status(404).json(errors);
           }
         });
       
     });
 });
+
+
+
+
 
 //@route : /api/users/current
 //@desc: used for returning current logged in user

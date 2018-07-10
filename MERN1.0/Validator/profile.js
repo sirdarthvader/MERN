@@ -1,32 +1,55 @@
 const validator = require('validator')
 const isEmpty = require('./is-empty');
 
-module.exports = function validateRegisterInput (data) {
+module.exports = function validateProfileInput (data) {
   let errors = {}
 
-  data.name = !isEmpty(data.name) ? data.name : '';
-  data.email = !isEmpty(data.email) ? data.email : '';
-  data.password = !isEmpty(data.password) ? data.password : '';
-  data.password2 = !isEmpty(data.password2) ? data.password2 : '';
 
-  if (!validator.isLength(data.name, { min: 2, max: 30 })) {
-    errors.name = "Name must be more than 2 characters and less than 3";
+  data.handle = !isEmpty(data.handle) ? data.handle : '';
+  data.status = !isEmpty(data.status) ? data.status : '';
+  data.skills = !isEmpty(data.skills) ? data.skills : '';
+
+  if(!validator.isLength(data.handle, {min: 3, max: 40})) {
+    errors.handle = "handle length should be atleast 3 characters long";
   }
-  if (!validator.isEmpty(data.name)) {
-      errors.name: = "name can not be empty";
+  if(!validator.isEmpty(data.handle)) {
+      errors.handle = "handle can not be left empty";
   }
-  if(!validator.isEmpty(data.password)) {
-      errors.password = "password is required";
+  if(!validator.status.isEmpty(data.skills)) {
+      errors.status = "skills can not be left empty";
   }
-  if(!validator.isEmpty(data.password, {min: 6 , max: 30})) {
-    errors.password = "password must be atleast 6 characters long";
-  }
-  if(!validator.isEmtpty(data.password2) {
-      errors.password2 = "password confirm field is required";
-  }
-  if(!validator.equals(data.password, data.password2)) {
-      errors.password2 = "passwords must match";
-  }
+  if(!isEmpty(data.website) {
+      if(!validator.isURL(data.website)) {
+          errors.website = "enter a valid website address";
+      }
+  })
+  if(!isEmpty(data.youtube) {
+    if(!validator.isURL(data.youtube)) {
+        errors.youtube = "enter a valid youtube address";
+    }
+})
+if(!isEmpty(data.instagram) {
+    if(!validator.isURL(data.instagram)) {
+        errors.instagram = "enter a valid instagram address";
+    }
+})
+if(!isEmpty(data.linkedin) {
+    if(!validator.isURL(data.linkedin)) {
+        errors.linkedin = "enter a valid linkedin address";
+    }
+})
+if(!isEmpty(data.facebook) {
+    if(!validator.isURL(data.facebook)) {
+        errors.facebook = "enter a valid facebook address";
+    }
+})
+if(!isEmpty(data.twitter) {
+    if(!validator.isURL(data.twitter)) {
+        errors.twitter = "enter a valid twitter address";
+    }
+})
+
+
 
   return {
     errors,

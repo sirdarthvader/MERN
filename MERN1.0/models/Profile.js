@@ -8,7 +8,7 @@ const ProfileSchema = new Schema({
     }, 
     handle: {
         type: String,
-        required: true
+        required: true,
         max: 40
     },
     companny: {
@@ -46,12 +46,12 @@ const ProfileSchema = new Schema({
                 type: String
             },
             from: {
-                type: Date
+                type: Date,
                 required: true
             },
             todate: {
-                type: Date
-                required: flase
+                type: Date,
+                required: false
             },
             current: {
                 type: Boolean,
@@ -77,12 +77,12 @@ const ProfileSchema = new Schema({
               type: String
           },
           from: {
-              type: Date
+              type: Date,
               required: true
           },
           todate: {
-              type: Date
-              required: flase
+              type: Date,
+              required: false
           },
           current: {
               type: Boolean,
