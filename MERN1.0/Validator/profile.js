@@ -18,36 +18,36 @@ module.exports = function validateProfileInput (data) {
   if(!validator.status.isEmpty(data.skills)) {
       errors.status = "skills can not be left empty";
   }
-  if(!isEmpty(data.website) {
+  if(!isEmpty(data.website)) {
       if(!validator.isURL(data.website)) {
           errors.website = "enter a valid website address";
       }
-  })
-  if(!isEmpty(data.youtube) {
+  }
+  if(!isEmpty(data.youtube)) {
     if(!validator.isURL(data.youtube)) {
         errors.youtube = "enter a valid youtube address";
     }
-})
-if(!isEmpty(data.instagram) {
+}
+if(!isEmpty(data.instagram)) {
     if(!validator.isURL(data.instagram)) {
         errors.instagram = "enter a valid instagram address";
     }
-})
-if(!isEmpty(data.linkedin) {
+}
+if(!isEmpty(data.linkedin)) {
     if(!validator.isURL(data.linkedin)) {
         errors.linkedin = "enter a valid linkedin address";
     }
-})
-if(!isEmpty(data.facebook) {
+}
+if(!isEmpty(data.facebook)) {
     if(!validator.isURL(data.facebook)) {
         errors.facebook = "enter a valid facebook address";
     }
-})
-if(!isEmpty(data.twitter) {
+}
+if(!isEmpty(data.twitter)) {
     if(!validator.isURL(data.twitter)) {
         errors.twitter = "enter a valid twitter address";
     }
-})
+}
 
 
 
