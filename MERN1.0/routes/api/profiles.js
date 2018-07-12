@@ -12,7 +12,7 @@ const Profile = require('../../models/Profile')
 const User = require('../../models/User')
 
 //Load input validation function
-const validateProfileInput = require('../../Validator/profile');
+// const validateProfileInput = require('../../Validator/profile');
 
 
 // @route : /api/profile/test
