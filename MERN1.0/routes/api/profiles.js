@@ -25,7 +25,6 @@ router.get('/test', (req, res) => {
 })
 
 
-
 // @route : /api/profile/
 // @desc: get current user profile (GET)
 // @access: private
