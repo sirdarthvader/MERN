@@ -12,7 +12,7 @@ const Profile = require('../../models/Profile')
 const User = require('../../models/User')
 
 //Load input validation function
-// const validateProfileInput = require('../../Validator/profile');
+const validateProfileInput = require('../../Validator/profile');
 
 
 // @route : /api/profile/test
@@ -51,11 +51,11 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
   
   //Check input validation
-  // const {isValid, errors} = validateProfileInput(res.body);
-  // if(!isValid) {
-  //   // return any errors 
-  //   return res.status(404).json(errors);
-  // }
+  const {isValid, errors} = validateProfileInput(req.body);
+  if(!isValid) {
+    // return any errors 
+    return res.status(404).json(errors);
+  }
 
   const profileFields = {};
   //Get user data 

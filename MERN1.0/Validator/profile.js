@@ -1,21 +1,21 @@
 const validator = require('validator')
 const isEmpty = require('./is-empty');
 
-module.exports = function validateProfileInput (data) {
+module.exports = function validateProfileInput(data) {
   let errors = {}
 
 
-  data.handle = !isEmpty(data.handle) ? data.handle : '';
-  data.status = !isEmpty(data.status) ? data.status : '';
-  data.skills = !isEmpty(data.skills) ? data.skills : '';
+//   data.handle = !isEmpty(data.handle) ? data.handle : '';
+//   data.status = !isEmpty(data.status) ? data.status : '';
+//   data.skills = !isEmpty(data.skills) ? data.skills : '';
 
   if(!validator.isLength(data.handle, {min: 3, max: 40})) {
     errors.handle = "handle length should be atleast 3 characters long";
   }
-  if(!validator.isEmpty(data.handle)) {
+  if(validator.isEmpty(data.handle)) {
       errors.handle = "handle can not be left empty";
   }
-  if(!validator.status.isEmpty(data.skills)) {
+  if(validator.isEmpty(data.skills)) {
       errors.status = "skills can not be left empty";
   }
   if(!isEmpty(data.website)) {
