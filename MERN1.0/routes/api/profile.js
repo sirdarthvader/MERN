@@ -94,14 +94,12 @@ router.post(
         ).then(profile => res.json(profile));
       } else {
         // Create
-
         // Check if handle exists
         Profile.findOne({ handle: profileFields.handle }).then(profile => {
           if (profile) {
             errors.handle = 'That handle already exists';
             res.status(400).json(errors);
           }
-
           // Save Profile
           new Profile(profileFields).save().then(profile => res.json(profile));
         });
@@ -109,4 +107,51 @@ router.post(
     });
   }
 );
+
+
+// @route     /api/profile/handle/:handle
+// @desc      get profile by handle (GET)
+// @access    public
+
+router.get('/handle/:handle', (req, res) => {
+  //initialise for errors
+  const errors = {};
+  //Check for profile in database
+  Profile.findOne({user: req.params.handle})
+    .populate('user', ['name', 'avatar'])
+    .then(profile => {
+      //check if profile is not available
+      if(!profile) {
+        errors.noprofile = 'No profile for this handle exists';
+        res.status(404).json(errors);
+      }
+      res.json(profile)
+    })
+    .catch(err => res.status(404).json({msg: "Promise execution error"}));
+})
+
+
+
+
+// @route     /api/profile/user/:user_id
+// @desc      get profile by user id (GET)
+// @access    public
+
+router.get('/user/:user_id', (req, res) => {
+  //initialise for errors
+  const errors = {};
+  //Check for profile in database
+  Profile.findOne({user: req.params.user_id})
+    .populate('user', ['name', 'avatar'])
+    .then(profile => {
+      //check if profile is not available
+      if(!profile) {
+        errors.noprofile = 'No user for this id exists';
+        res.status(404).json(errors);
+      }
+      res.json(profile)
+    })
+    .catch(err => res.status(404).json({msg: "Promise execution error"}));
+})
+
 module.exports = router

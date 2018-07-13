@@ -15,7 +15,7 @@ const port = 5000;
 // Route Setup...
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts');
-const profiles = require('./routes/api/profiles');
+const profile = require('./routes/api/profile');
 
 //config DB..
 const db = require('./config/keys.js').mongoURI;
@@ -35,7 +35,7 @@ require('./config/passport')(passport);
 
 //Route Setup...
 app.use('/api/users', users);
-app.use('/api/profiles', profiles);
+app.use('/api/profile', profile);
 app.use('/api/posts', posts);
 
 
