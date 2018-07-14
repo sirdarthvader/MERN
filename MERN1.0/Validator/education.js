@@ -8,7 +8,6 @@ module.exports = function validateEductionInput (data) {
   data.school = !isEmpty(data.school) ? data.school : '';
   data.degree = !isEmpty(data.degree) ? data.degree : '';
   data.fieldofstudy = !isEmpty(data.fieldofstudy) ? data.fieldofstudy : '';
-  data.from = !isEmpty(data.from) ? data.from : '';
 
 
   if(validator.isEmpty(data.school)) {
@@ -21,9 +20,6 @@ module.exports = function validateEductionInput (data) {
       errors.fieldofstudy = "field of study is required";
   }
 
-  if(validator.isEmpty(data.from)) {
-    errors.from = "from date is required";
-}
 
   return {
     errors,

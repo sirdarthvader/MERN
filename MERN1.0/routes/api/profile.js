@@ -196,14 +196,15 @@ router.post('/education',
 // @desc      add experience to profile
 // @access    private
 
-router.get('/experience', passport.authenticate('jwt', {session: false}), (req, res) => {
+router.post('/experience', passport.authenticate('jwt', {session: false}), (req, res) => {
   //Input validation
-  const { errors, isValid } = validateEducationInput(req.body);
-    // Check Validation
-    if (!isValid) {
-      // Return any errors with 400 status
-      return res.status(400).json(errors);
-    }
+  // const { errors, isValid } = validateEducationInput(req.body);
+  //   // Check Validation
+  //   if (!isValid) {
+  //     // Return any errors with 400 status
+  //     return res.status(400).json(errors);
+  //   }
+  const errors = {};
   Profile.findOne({user: req.user.id})
     .then(profile => {
       const newExp = {
@@ -219,6 +220,23 @@ router.get('/experience', passport.authenticate('jwt', {session: false}), (req, 
       profile.save().then(profile => res.json(profile));
     })
     .catch(err => res.status(400).json({msg: "Promise execution error!!!"}))
+})
+
+
+// @route     /api/profile/all
+// @desc      show all profiles
+// @access    public
+
+router.get('/all', (req, res) => {
+  Profile.find()
+    .populate('user', ['name', 'avatar'])
+    .then(profiles => {
+      if(!profiles) {
+        errors.noprofile = "There are no profiles"
+        res.status(400).json({msg: "There are no profiles"})
+      }
+      res.json(profiles)
+    })
 })
 
 module.exports = router
