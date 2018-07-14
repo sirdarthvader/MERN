@@ -13,6 +13,8 @@ const User = require('../../models/User')
 
 //Load input validation function
 const validateProfileInput = require('../../Validator/profile');
+const validateEducationInput = require('../../Validator/education');
+const validateExperienceInput = require('../../Validator/experience');
 
 
 // @route : /api/profile/test
@@ -117,7 +119,7 @@ router.get('/handle/:handle', (req, res) => {
   //initialise for errors
   const errors = {};
   //Check for profile in database
-  Profile.findOne({user: req.params.handle})
+  Profile.findOne({handle: req.params.handle})
     .populate('user', ['name', 'avatar'])
     .then(profile => {
       //check if profile is not available
@@ -152,6 +154,71 @@ router.get('/user/:user_id', (req, res) => {
       res.json(profile)
     })
     .catch(err => res.status(404).json({msg: "Promise execution error"}));
+})
+
+
+// @route     /api/profile/education
+// @desc      add educaton to profile
+// @access    private
+router.post('/education', 
+            passport.authenticate('jwt', {session: false}),
+            (req, res) => {
+  //Input validation
+  const { errors, isValid } = validateEducationInput(req.body);
+    // Check Validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+  Profile.findOne({user: req.user.id})
+    .populate('user', ['name', 'avatar'])
+    .then(profile => {
+      const newEdu = {
+        school: req.body.school,
+        degree: req.body.degree,
+        fieldofstudy: req.body.fieldofstudy,
+        from: req.body.from,
+        to: req.body.to,
+        current: req.body.current,
+        description: req.body.description
+      };
+      profile.education.unshift(newEdu);
+      profile.save().then(profile => res.json(profile));
+    })
+    .catch(err => res.status(404).json({msg: "Promise execution error"}));
+
+})
+
+
+
+
+// @route     /api/profile/experience
+// @desc      add experience to profile
+// @access    private
+
+router.get('/experience', passport.authenticate('jwt', {session: false}), (req, res) => {
+  //Input validation
+  const { errors, isValid } = validateEducationInput(req.body);
+    // Check Validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+  Profile.findOne({user: req.user.id})
+    .then(profile => {
+      const newExp = {
+        title: req.body.title,
+        company: req.body.company,
+        location: req.body.location,
+        from: req.body.from,
+        to: req.body.to,
+        current: req.body.current,
+        description: req.body.description
+      };
+      profile.experience.unshift(newExp);
+      profile.save().then(profile => res.json(profile));
+    })
+    .catch(err => res.status(400).json({msg: "Promise execution error!!!"}))
 })
 
 module.exports = router
