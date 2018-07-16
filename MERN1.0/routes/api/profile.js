@@ -239,4 +239,58 @@ router.get('/all', (req, res) => {
     })
 })
 
+// @route     /api/profile/experience/:exp_id
+// @desc      Delete selected experience record
+// @access    private
+
+router.delete('/experience/:exp_id', passport.authenticate('jwt', {session:false}), (req, res) => {
+  const errors = {};
+  Profile.findOne({user: req.user.id})
+  .then(profile => {
+    const remInd = profile.experience
+    .map(item => item.id)
+    .indexOf(req.params.exp_id);
+
+    profile.education.splice(remInd, 1);
+
+    profile.save()
+    .then(profile => {
+      res.json(profile)
+    })
+    .catch(err => {
+      res.status(400).json({msg: "Promise execution error inside collection level"})
+    })
+  })
+  .catch(err => {
+    res.status(400).json({msg: "Promise execution error on collection level"})
+  })
+})
+
+// @route     /api/profile/experience/:edu_id
+// @desc      Delete selected education record
+// @access    private
+
+router.delete('/education/:edu_id', passport.authenticate('jwt', {session:false}), (req, res) => {
+  const errors = {};
+  Profile.findOne({user: req.user.id})
+  .then(profile => {
+    const remInd = profile.education
+    .map(item => item.id)
+    .indexOf(req.params.edu_id);
+
+    profile.education.splice(remInd, 1);
+
+    profile.save()
+    .then(profile => {
+      res.json(profile)
+    })
+    .catch(err =>{
+      res.status(400).json({msg: "Promise execution error inside collection level"})
+    })
+  })
+  .catch(err => {
+    res.status(400).json({msg: "Promise execution error on collection level"});
+  })
+})
+
 module.exports = router
