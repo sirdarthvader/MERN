@@ -11,9 +11,10 @@ const passport = require('passport');
 const validateRegisterInput = require('../../Validator/register');
 const validateLoginInput = require('../../Validator/login');
 
+
+
 // Load user model...
 const User = require('../../models/User');
-
 
 
 
@@ -28,13 +29,12 @@ router.get('/test', (req, res) => {
 
 
 
-// @route : /api/users/register
+// @route : POST /api/users/register
 // @desc  : used for registering users in database
 // @access: public
 router.post('/register', (req, res) => {
   //Validate Input...
   const {isValid, errors} = validateRegisterInput(req.body);
-  console.log(req.body);
 
   if(!isValid) {
     return res.status(400).json (errors);
