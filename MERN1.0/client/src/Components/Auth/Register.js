@@ -51,6 +51,7 @@ class Register extends Component {
                     type="text"
                     className="form-control form-control-lg"
                     placeholder="Name"
+                    autoComplete='name'
                     name="name"
                     value={this.state.name}
                     onChange={this.onChange}
@@ -61,6 +62,7 @@ class Register extends Component {
                     type="email"
                     className="form-control form-control-lg"
                     placeholder="Email Address"
+                    autoComplete='email'
                     name="email"
                     value={this.state.email}
                     onChange={this.onChange}
@@ -75,6 +77,7 @@ class Register extends Component {
                     type="password"
                     className="form-control form-control-lg"
                     placeholder="Password"
+                    autoComplete='password'
                     name="password"
                     value={this.state.password}
                     onChange={this.onChange}
@@ -85,6 +88,7 @@ class Register extends Component {
                     type="password"
                     className="form-control form-control-lg"
                     placeholder="Confirm Password"
+                    autoComplete='confirm password'
                     name="password2"
                     value={this.state.password2}
                     onChange={this.onChange}

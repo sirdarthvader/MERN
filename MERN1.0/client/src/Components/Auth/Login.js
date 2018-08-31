@@ -44,7 +44,7 @@ class Login extends Component {
                     name="email"
                     value={this.state.email}
                     onChange={this.handleChange}
-                    autoComplete="username"
+                    autoComplete="name"
                   />
                 </div>
                 <div className="form-group">
@@ -55,7 +55,7 @@ class Login extends Component {
                     name="password"
                     value={this.state.password}
                     onChange={this.handleChange}
-                    autoComplete="current-password"
+                    autoComplete="password"
                   />
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
