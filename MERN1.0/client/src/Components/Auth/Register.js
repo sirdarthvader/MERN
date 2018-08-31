@@ -9,7 +9,7 @@ class Register extends Component {
       email: '',
       password: '',
       password2: '',
-      errors: {}
+      errors: {},
     };
 
     this.onChange = this.onChange.bind(this);
@@ -22,12 +22,11 @@ class Register extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-
     const newUser = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
-      password2: this.state.password2
+      password2: this.state.password2,
     };
     console.log(newUser);
     axios
@@ -37,8 +36,6 @@ class Register extends Component {
   }
 
   render() {
-    const { errors } = this.state;
-
     return (
       <div className="register">
         <div className="container">
@@ -52,7 +49,7 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="text"
-                    className='form-control form-control-lg'
+                    className="form-control form-control-lg"
                     placeholder="Name"
                     name="name"
                     value={this.state.name}
@@ -62,7 +59,7 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="email"
-                    className='form-control form-control-lg'
+                    className="form-control form-control-lg"
                     placeholder="Email Address"
                     name="email"
                     value={this.state.email}
@@ -76,7 +73,7 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="password"
-                    className='form-control form-control-lg'
+                    className="form-control form-control-lg"
                     placeholder="Password"
                     name="password"
                     value={this.state.password}
@@ -86,7 +83,7 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="password"
-                    className='form-control form-control-lg'
+                    className="form-control form-control-lg"
                     placeholder="Confirm Password"
                     name="password2"
                     value={this.state.password2}

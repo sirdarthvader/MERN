@@ -19,7 +19,7 @@ class Login extends Component {
   handleSubmit(event) {
     const loginUser = {
       email: this.state.email,
-      password: this.state.passord
+      password: this.state.passord,
     };
     console.log(loginUser);
     event.preventDefault();
@@ -35,7 +35,7 @@ class Login extends Component {
               <p className="lead text-center">
                 Sign in to your DevConnector account
               </p>
-              <form onSubmit= {this.handleSubmit} >
+              <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
                   <input
                     type="email"
