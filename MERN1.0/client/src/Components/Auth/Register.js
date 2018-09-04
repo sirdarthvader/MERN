@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { registeruser } from '../../Actions/authAction';
 
 class Register extends Component {
   constructor() {
@@ -29,10 +31,13 @@ class Register extends Component {
       password2: this.state.password2,
     };
     console.log(newUser);
-    axios
-      .post('/api/users/register', newUser)
-      .then(res => console.log(res.data))
-      .catch(err => this.setState({ errors: err.response.data }));
+    this.props.registeruser(newUser);
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if(nextProps.errors) {
+      this.setState({errors: nextProps.errors})
+    }
   }
 
   render() {
@@ -51,7 +56,7 @@ class Register extends Component {
                     type="text"
                     className="form-control form-control-lg"
                     placeholder="Name"
-                    autoComplete='name'
+                    autoComplete="name"
                     name="name"
                     value={this.state.name}
                     onChange={this.onChange}
@@ -62,7 +67,7 @@ class Register extends Component {
                     type="email"
                     className="form-control form-control-lg"
                     placeholder="Email Address"
-                    autoComplete='email'
+                    autoComplete="email"
                     name="email"
                     value={this.state.email}
                     onChange={this.onChange}
@@ -77,7 +82,7 @@ class Register extends Component {
                     type="password"
                     className="form-control form-control-lg"
                     placeholder="Password"
-                    autoComplete='password'
+                    autoComplete="password"
                     name="password"
                     value={this.state.password}
                     onChange={this.onChange}
@@ -88,7 +93,7 @@ class Register extends Component {
                     type="password"
                     className="form-control form-control-lg"
                     placeholder="Confirm Password"
-                    autoComplete='confirm password'
+                    autoComplete="confirm password"
                     name="password2"
                     value={this.state.password2}
                     onChange={this.onChange}
@@ -104,4 +109,17 @@ class Register extends Component {
   }
 }
 
-export default Register;
+Register.propTypes = {
+  registeruser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { registeruser }
+)(Register);
