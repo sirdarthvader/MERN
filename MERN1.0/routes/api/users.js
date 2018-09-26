@@ -18,7 +18,7 @@ const User = require('../../models/User');
 //@access: public
 router.get('/test', (req, res) => {
   res.json({
-    msg: 'users works',
+    msg: 'don\'t waste time',
   });
 });
 
@@ -115,7 +115,7 @@ router.post('/login', (req, res) => {
 //@access: private
 router.get(
   '/current',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('jwt', { session: true }),
   (req, res) => {
     res.json(req.user);
   }
