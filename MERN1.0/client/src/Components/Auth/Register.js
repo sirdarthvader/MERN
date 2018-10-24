@@ -33,9 +33,11 @@ class Register extends Component {
       password2: this.state.password2,
     };
     console.log(newUser);
-    axios.post('/api/user/register', newUser)
-    .then(res => console.log(res.data))
-    .catch(err => this.setState({errors: err.response.data}))
+
+    axios
+      .post('/api/users/register', newUser)
+      .then(res => console.log(res.data))
+      .catch(err => this.setState({ errors: err.response.data }));
   }
 
   render() {
@@ -54,7 +56,7 @@ class Register extends Component {
                   <input
                     type="text"
                     className={classnames('form-control form-control-lg', {
-                      'is-invalid': errors.name
+                      'is-invalid': errors.name,
                     })}
                     placeholder="Name"
                     autoComplete="name"
@@ -62,7 +64,9 @@ class Register extends Component {
                     value={this.state.name}
                     onChange={this.onChange}
                   />
-                  {errors.name && (<div className='is-invalid'>{errors.name}</div>)}
+                  {errors.name && (
+                    <div className="is-invalid">{errors.name}</div>
+                  )}
                 </div>
                 <div className="form-group">
                   <input
@@ -113,12 +117,12 @@ class Register extends Component {
 
 Register.propTypes = {
   registeruser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
-}
+  auth: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
 });
 
 export default connect(

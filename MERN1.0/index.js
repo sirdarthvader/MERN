@@ -25,7 +25,7 @@ const db = require('./config/keys.js').mongoURI;
 //Connect to mongoDB...
 mongoose
   .connect(db)
-  .then(() => console.log('mongoDB connected'))
+  .then(() => console.log('mongoDB connectedddd'))
   .catch(err => console.log(err));
 
 //passport middleware
