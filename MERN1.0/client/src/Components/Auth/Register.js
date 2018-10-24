@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { registeruser } from '../../Actions/authAction';
+import axios from 'axios';
 
 class Register extends Component {
   constructor() {
@@ -31,16 +33,13 @@ class Register extends Component {
       password2: this.state.password2,
     };
     console.log(newUser);
-    this.props.registeruser(newUser);
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if(nextProps.errors) {
-      this.setState({errors: nextProps.errors})
-    }
+    axios.post('/api/user/register', newUser)
+    .then(res => console.log(res.data))
+    .catch(err => this.setState({errors: err.response.data}))
   }
 
   render() {
+    const { errors } = this.state;
     return (
       <div className="register">
         <div className="container">
@@ -54,13 +53,16 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control form-control-lg"
+                    className={classnames('form-control form-control-lg', {
+                      'is-invalid': errors.name
+                    })}
                     placeholder="Name"
                     autoComplete="name"
                     name="name"
                     value={this.state.name}
                     onChange={this.onChange}
                   />
+                  {errors.name && (<div className='is-invalid'>{errors.name}</div>)}
                 </div>
                 <div className="form-group">
                   <input
