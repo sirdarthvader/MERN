@@ -10,15 +10,13 @@ class Login extends Component {
       password: '',
       errors: {},
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = (event)=> {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     const loginUser = {
       email: this.state.email,
       password: this.state.passord,
