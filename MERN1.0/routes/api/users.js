@@ -22,11 +22,15 @@ router.get('/test', (req, res) => {
   });
 });
 
+router.get('/register', (req, res)  => {
+  res.send('route testing');
+})
+
 // @route : POST /api/users/register
 // @desc  : used for registering users in database
 // @access: public
 router.post('/register', (req, res) => {
-  console.log(req.body);
+  console.log('hiting the register route');
   //Validate Input...
   const { isValid, errors } = validateRegisterInput(req.body);
 
