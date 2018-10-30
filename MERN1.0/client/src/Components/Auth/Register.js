@@ -37,6 +37,12 @@ class Register extends Component {
       .catch(err => this.setState({ errors: err.response.data }));
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps) {
+      this.setState({errors: nextProps.errors});
+    }
+  }
+
   render() {
     const { errors } = this.state;
     return (
@@ -129,7 +135,8 @@ class Register extends Component {
 
 Register.propTypes = {
   registeruser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
