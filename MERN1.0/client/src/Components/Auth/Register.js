@@ -3,7 +3,6 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { registeruser } from "../../Actions/authAction";
-import axios from "axios";
 
 class Register extends Component {
   constructor() {
@@ -29,22 +28,18 @@ class Register extends Component {
       password: this.state.password,
       password2: this.state.password2
     };
-    console.log(newUser);
-
-    axios
-      .post("/api/users/register", newUser)
-      .then(res => console.log(res.data))
-      .catch(err => this.setState({ errors: err.response.data }));
+    this.props.registeruser(newUser);
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps) {
+    if(nextProps.errors) {
       this.setState({errors: nextProps.errors});
     }
   }
 
   render() {
     const { errors } = this.state;
+    this.state.errors
     return (
       <div className="register">
         <div className="container">
