@@ -67,7 +67,7 @@ router.post('/register', (req, res) => {
   });
 });
 
-//@route : /api/user/login
+//@route : /api/users/login
 //@desc: confirm user exists
 //@access: pucblic
 router.post('/login', (req, res) => {
