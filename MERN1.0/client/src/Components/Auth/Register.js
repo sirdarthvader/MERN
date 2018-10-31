@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { withRouter } from 'react-router-dom';
 import { registeruser } from "../../Actions/authAction";
 
 class Register extends Component {
@@ -141,4 +142,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { registeruser }
-)(Register);
+)(withRouter(Register));
