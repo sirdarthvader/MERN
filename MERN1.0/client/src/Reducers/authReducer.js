@@ -1,4 +1,4 @@
-import SET_CURRENT_USER from '../Actions/types';
+import {SET_CURRENT_USER} from '../Actions/types';
 import isEmpty from '../validations/is-empty';
 
 const initialState = {

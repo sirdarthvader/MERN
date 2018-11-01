@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import axios from "axios";
+import { loginUser } from '../../Actions/authAction';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 class Login extends Component {
@@ -17,19 +19,25 @@ class Login extends Component {
   }
 
   handleSubmit = (event) => {
+    event.preventDefault();
     const loginUser = {
       email: this.state.email,
       password: this.state.passord,
     };
-    console.log(loginUser);
-    event.preventDefault();
-
-    axios
-      .post("/api/users/login", loginUser)
-      .then(res => console.log(res.data))
-      .catch(err => this.setState({ errors: err.response.data }));
+    this.props.loginUser(loginUser)
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+    if(nextProps.errors) {
+      this.setState({errors: nextProps.errors})
+    }
+  }
+
+
+  
   render() {
     const { errors } = this.state;
     return (
@@ -80,4 +88,15 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors
+})
+
+export default connect(mapStateToProps, { loginUser })(Login);
