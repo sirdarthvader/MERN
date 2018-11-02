@@ -21,7 +21,7 @@ export const getCurrentProfile = () => dispacth => {
 };
 
 //Profile Loading
-export const setProfileLaoding = () => {
+export const setProfileLoading = () => {
   return {
     type: PROFILE_LOADING
   };

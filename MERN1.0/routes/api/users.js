@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const key = require('../../config/keys');
@@ -42,11 +41,7 @@ router.post('/register', (req, res) => {
     if (user) {
       res.status(400).json({ email: 'A user with this email already exists' });
     } else {
-      const avatar = gravatar.url({
-        s: 200, //size
-        r: 'pg', //rating
-        d: 'mm', //default
-      });
+      const avatar = `https://api.adorable.io/avatars/3/${req.body.email}.png`;
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,

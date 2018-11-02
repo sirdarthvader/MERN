@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { logOutUser } from '../../Actions/authAction';
 
 class Navbar extends Component {
+  
   onLogout(e) {
     e.preventDefault();
     this.props.logOutUser;
