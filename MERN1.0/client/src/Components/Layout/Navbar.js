@@ -18,8 +18,8 @@ class Navbar extends Component {
         <li className="nav-item">
           <a href="" className="nav-link" onClick={this.onLogout.bind(this)}>
             <img
-              src="{user.avatar}"
-              alt="{user.name}"
+              src={user.avatar}
+              alt={user.name}
               style={{ width: '25px', marginRight: '5px' }}
               className="rounded-circle"
             />{' '}
