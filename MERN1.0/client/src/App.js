@@ -7,11 +7,12 @@ import { setCurrentUser, logOutUser } from './Actions/authAction';
 import store from './store';
 
 //Components 
-import Navbar from './Components/Layout/Navbar';
-import Footer from './Components/Layout/Footer';
-import Landing from './Components/Layout/Landing';
-import Login from './Components/Auth/Login';
-import Register from './Components/Auth/Register';
+import Navbar from './Components/layout/Navbar';
+import Footer from './Components/layout/Footer';
+import Landing from './Components/layout/Landing';
+import Login from './Components/auth/Login';
+import Register from './Components/auth/Register';
+import Dashboard from './Components/dashboard/Dashboard';
 
 import './App.css';
 
@@ -49,6 +50,7 @@ class App extends Component {
             <div className="container">
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
+              <Route exact path="/dashboard" component={Dashboard} />
             </div>
             <Footer />
           </div>
