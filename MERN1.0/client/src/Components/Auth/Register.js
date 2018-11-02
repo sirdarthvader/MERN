@@ -62,7 +62,7 @@ class Register extends Component {
                   onChange={this.onChange}
                   autoComplete={'name'}
                   placeholder={'Full Name'}
-                  error={errors}
+                  error={errors.name}
                 />
                 <TextFieldGroup
                   name={'email'}
@@ -74,7 +74,7 @@ class Register extends Component {
                   info={
                     'This site uses Gravatar so if you want a profile image use, email associated with gravatar'
                   }
-                  error={errors}
+                  error={errors.email}
                 />
                 <TextFieldGroup
                   name={'password'}
@@ -83,7 +83,7 @@ class Register extends Component {
                   onChange={this.onChange}
                   autoComplete={'password'}
                   placeholder={'Password'}
-                  error={errors}
+                  error={errors.password}
                 />
                 <TextFieldGroup
                   name={'password2'}
@@ -92,7 +92,7 @@ class Register extends Component {
                   onChange={this.onChange}
                   autoComplete={'password'}
                   placeholder={'Confirm Password'}
-                  error={errors}
+                  error={errors.password2}
                 />
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
