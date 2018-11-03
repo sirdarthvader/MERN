@@ -4,17 +4,14 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const key = require('../../config/keys');
-
 // Load profile model
 const Profile = require('../../models/Profile');
 // Load user model
 const User = require('../../models/User');
-
 //Load input validation function
 const validateProfileInput = require('../../Validator/profile');
 const validateEducationInput = require('../../Validator/education');
 const validateExperienceInput = require('../../Validator/experience');
-
 
 
 
@@ -43,7 +40,6 @@ router.post(
       // Return any errors with 400 status
       return res.status(400).json(errors);
     }
-
     // Get fields
     const profileFields = {};
     profileFields.user = req.user.id;
@@ -59,7 +55,6 @@ router.post(
     if (typeof req.body.skills !== 'undefined') {
       profileFields.skills = req.body.skills.split(',');
     }
-
     // Social
     profileFields.social = {};
     if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
@@ -67,7 +62,6 @@ router.post(
     if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
     if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
     if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
-
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {
         // Update
