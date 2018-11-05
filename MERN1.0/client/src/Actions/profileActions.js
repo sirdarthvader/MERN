@@ -5,7 +5,7 @@ import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE } from "./types";
 export const getCurrentProfile = () => dispacth => {
   dispacth(setProfileLoading());
   axios
-    .get('/api/profile/test')
+    .get('/api/profile/')
     .then(res => {
       dispacth({
         type: GET_PROFILE,
