@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Spinner() {
+function Loader() {
   return (
     <div>
       loading...
@@ -9,4 +9,4 @@ function Spinner() {
 }
 
 
-export default Spinner;
+export default Loader;

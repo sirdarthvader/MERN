@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Loader from '../common/Loader';
 import { getCurrentProfile } from '../../Actions/profileActions';
 
 
@@ -17,7 +18,7 @@ class Dashboard extends Component {
     
     if(user) {
       if(profile === null || loading) {
-        dashBoardContent = <h4>Loading....</h4>
+        dashBoardContent = <Loader />
       } else {
         dashBoardContent = <h4>Welcome</h4>
       }
