@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import TextFieldGroup from "../common/TextFieldGroup";
+// import TextFieldGroup from "../common/TextFieldGroup";
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -54,4 +54,4 @@ const mapStateToProps = state => ({
   errors: state.erors
 });
 
-export default CreateProfile;
+export default connect(mapStateToProps, {}) (CreateProfile);
