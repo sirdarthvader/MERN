@@ -18,7 +18,7 @@ const InputGroup = ({
                 <i className={icon} />
             </span>
         </div>
-        <textarea
+        <input
             className={classnames('form-control form-control-lg', {
             'is-invalid': error,
             })}
@@ -26,10 +26,7 @@ const InputGroup = ({
             name={name}
             value={value}
             onChange={onChange}
-            info={info}
-            autoComplete={autoComplete}
         />
-      {info && <small className='form-text text-muted'>{info}</small>}
       {error && <div className="invalid-feedback">{error}</div>}
     </div>
   );

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import TextFieldGroup from "../common/TextFieldGroup";
 import TextAreaFieldGroup from "../common/TextFieldGroup";
 import InputGroup from "../common/TextFieldGroup";
-import SelectListGroup from "../common/TextFieldGroup";
+import SelectListGroup from "../common/SelectListGroup";
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class CreateProfile extends Component {
       website: "",
       location: "",
       status: "",
-      skilla: "",
+      skills: "",
       githubusername: "",
       bio: "",
       twitter: "",
@@ -26,22 +26,29 @@ class CreateProfile extends Component {
       instagram: "",
       errors: {}
     };
-    this.onChnage = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit(e) {
+  onSubmit = (e) => {
       e.preventDefault();
       console.log('submit');
   }
 
-  onChange(e) {
+  onChange = (e) => {
       this.setState({[e.target.name]: e.target.value}); 
   }
 
   render() {
       const {errors} = this.state;
-
+      // options
+      const options = [
+        {label: '* Select Professional status', value: 0},
+        {label: 'Developer', value: 'Developer'},
+        {label: 'Manager', value: 'Manager'},
+        {label: 'Intern', value: 'Intern'},
+        {label: 'Student', value: 'Student'},
+        {label: 'Senior Developer', value: 'Developer'},
+        {label: 'Teacher', value: 'Teacher'},
+      ]
     return (
       <div className="create-profile">
         <div className="container">
@@ -61,6 +68,16 @@ class CreateProfile extends Component {
                     error={errors.handle}
                     info='A unique handle for your profile, people can look you up using the handle name please be wise.'
                 />
+                <SelectListGroup 
+                    placeholder="Status"
+                    name='status'
+                    value={this.state.status}
+                    options={options}
+                    onChange={this.onChange}
+                    error={errors.status}
+                    info='Select your professional status'
+                />
+
               </form>
             </div>
           </div>

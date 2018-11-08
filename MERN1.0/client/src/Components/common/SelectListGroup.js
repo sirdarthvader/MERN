@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 const SelectListGroup = ({
   name,
+  placeholder,
   value,
   onChange,
   error,
@@ -19,17 +20,13 @@ const SelectListGroup = ({
   return (
     <div className="form-group">
       <select
-        type={type}
         className={classnames('form-control form-control-lg', {
           'is-invalid': error,
         })}
         name={name}
         value={value}
-        onClick={onClick}
-        disabled={disabled}
         onChange={onChange}
-        info={info}
-        autoComplete={autoComplete}>
+        info={info}>
         {selectOptions}
       </select>
       {info && <small className='form-text text-muted'>{info}</small>}
@@ -38,17 +35,16 @@ const SelectListGroup = ({
   );
 };
 
-TextFieldGroup.propTypes = {
+SelectListGroup.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   info: PropTypes.string,
-  type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired
 }
 
-TextFieldGroup.defaultProps = {
+SelectListGroup.defaultProps = {
   type: 'text'
 }
 
-export default TextFieldGroup;
+export default SelectListGroup;
