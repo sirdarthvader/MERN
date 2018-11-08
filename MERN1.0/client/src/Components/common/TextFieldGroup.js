@@ -8,7 +8,6 @@ const TextFieldGroup = ({
   value,
   type,
   onChange,
-  onClick,
   autoComplete,
   error,
   label,
@@ -25,7 +24,6 @@ const TextFieldGroup = ({
         placeholder={placeholder}
         name={name}
         value={value}
-        onClick={onClick}
         disabled={disabled}
         onChange={onChange}
         info={info}
@@ -44,7 +42,6 @@ TextFieldGroup.propTypes = {
   info: PropTypes.string,
   disabled: PropTypes.string,
   type: PropTypes.string.isRequired,
-  autoComplete: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired
 }
 
