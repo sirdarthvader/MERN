@@ -77,6 +77,46 @@ class CreateProfile extends Component {
                     error={errors.status}
                     info='Select your professional status'
                 />
+                <TextFieldGroup 
+                    placeholder="Company"
+                    name='company'
+                    value={this.state.company}
+                    onChange={this.onChange}
+                    error={errors.company}
+                    info='Could be your own company or the one you are working with'
+                />
+                <TextFieldGroup 
+                    placeholder="Website"
+                    name='website'
+                    value={this.state.website}
+                    onChange={this.onChange}
+                    error={errors.website}
+                    info='Link to your personal website , if you have any'
+                />
+                <TextFieldGroup 
+                    placeholder="Location"
+                    name='location'
+                    value={this.state.location}
+                    onChange={this.onChange}
+                    error={errors.location}
+                    info='Your current city location'
+                />
+                <TextFieldGroup 
+                    placeholder="Skills"
+                    name='skills'
+                    value={this.state.skills}
+                    onChange={this.onChange}
+                    error={errors.skills}
+                    info='Please use comma separated values, for eg: HTML,CSS,JS,PHP'
+                />
+                <TextFieldGroup 
+                    placeholder="Github Username"
+                    name='githubusername'
+                    value={this.state.githubusername}
+                    onChange={this.onChange}
+                    error={errors.githubusername}
+                    info='If you want to show the latest repo and a github link, include your username'
+                />
 
               </form>
             </div>
