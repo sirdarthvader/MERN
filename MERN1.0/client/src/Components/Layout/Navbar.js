@@ -6,7 +6,6 @@ import { logOutUser } from '../../Actions/authAction';
 import { clearCurrentProfile } from '../../Actions/profileActions';
 
 class Navbar extends Component {
-  
   onLogout(e) {
     e.preventDefault();
     this.props.clearCurrentProfile();

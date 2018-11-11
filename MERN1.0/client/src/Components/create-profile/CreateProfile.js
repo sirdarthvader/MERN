@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
@@ -37,7 +38,23 @@ class CreateProfile extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    console.log('submit');
+    const profileData = {
+      handle: this.state.handle,
+      company: this.state.company,
+      location: this.state.location,
+      skills: this.state.skills,
+      status: this.state.status,
+      website: this.state.website,
+      githubusername: this.state.githubusername,
+      bio: this.state.bio,
+      twitter: this.state.twitter,
+      facebook: this.state.facebook,
+      linkedin: this.state.linkedin,
+      instagram: this.state.instagram,
+      youtube: this.state.youtube
+
+    }
+    this.props.createProfile(profileData, this.props.history)
   };
 
   onChange = e => {
@@ -94,6 +111,8 @@ class CreateProfile extends Component {
         </div>
       );
     }
+    //error checking
+    const eror = this.state.errors.handle;
     // options
     const options = [
       { label: '* Select Professional status', value: 0 },
@@ -115,6 +134,7 @@ class CreateProfile extends Component {
                 created.
               </p>
               <small className="d-block pb-3">* = Required Fields</small>
+              <div>{eror}</div>
               <form onSubmit={this.onSubmit}>
                 <TextFieldGroup
                   placeholder="* Profile Handle"
@@ -124,6 +144,7 @@ class CreateProfile extends Component {
                   error={errors.handle}
                   info="A unique handle for your profile, people can look you up using the handle name please be wise."
                 />
+              
                 <SelectListGroup
                   placeholder="Status"
                   name="status"
@@ -212,6 +233,7 @@ class CreateProfile extends Component {
 
 CreateProfile.propTypes = {
   profile: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -222,4 +244,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { createProfile }
-)(CreateProfile);
+)(withRouter(CreateProfile));
