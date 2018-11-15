@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS } from "./types";
+import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER } from "./types";
 
 ///Get current profile
 export const getCurrentProfile = () => dispacth => {
@@ -32,6 +32,22 @@ export const createProfile = (profileData, history) => dispatch => {
       })
     );
 };
+
+//Delete account
+
+export const deleteAccount = () => dispacth => {
+  if(window.confirm('Are you user, this can NOT be undone.')){
+    axios.delete('/api/profile')
+    .then(res => dispacth({
+      type: SET_CURRENT_USER,
+      payload: {}
+    }))
+    .catch(err => dispacth({
+      type: GET_ERRORS,
+      payload: err.response.data
+    }))
+  }
+}
 
 //Profile Loading
 export const setProfileLoading = () => {
