@@ -1,12 +1,16 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 class Footer extends Component {
   render() {
     return (
-        <footer className="bg-dark text-white mt-5 p-4" style={{fontSize:'12px', textAlign:'left'}}>
+      <footer class="footer bg-dark">
+        <div class="container">
+          <span class="text-muted">
             Copyright &copy; {new Date().getFullYear()} DevConnector
-        </footer>
-    )
+          </span>
+        </div>
+      </footer>
+    );
   }
 }
 

@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router-dom'
 import Loader from '../common/Loader';
 import { getCurrentProfile } from '../../Actions/profileActions';
+import ProfileAxns from './ProfileAxns';
+
 
 
 class Dashboard extends Component {
@@ -22,7 +24,12 @@ class Dashboard extends Component {
     } else {
       // Check if logged in user has profile data
       if (Object.keys(profile).length > 0) {
-        dashboardContent = <h4>TODO: DISPLAY PROFILE</h4>;
+        dashboardContent = (
+          <div>
+          <p className="lead text-muted"> Welcome <Link to={`/profile/handle/${profile.handle}`}>{user.name}</Link></p>
+          <ProfileAxns />
+          </div>
+        );
       } else {
         // User is logged in but has no profile
         dashboardContent = (
