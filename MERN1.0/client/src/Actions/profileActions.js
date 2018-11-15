@@ -20,18 +20,18 @@ export const getCurrentProfile = () => dispacth => {
     });
 };
 
-//Create profile
-export const createProfile = (profileData, history) => dispacth => {
+// Create Profile
+export const createProfile = (profileData, history) => dispatch => {
   axios
-    .post('/api/profile/', profileData)
+    .post('/api/profile', profileData)
     .then(res => history.push('/dashboard'))
-    .catch(err => {
-      dispacth({
+    .catch(err =>
+      dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       })
-    })
-}
+    );
+};
 
 //Profile Loading
 export const setProfileLoading = () => {

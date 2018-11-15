@@ -13,8 +13,6 @@ const validateProfileInput = require('../../Validator/profile');
 const validateEducationInput = require('../../Validator/education');
 const validateExperienceInput = require('../../Validator/experience');
 
-
-
 // @route : /api/profile/test
 // @desc: used for testing the profile route
 // @access: public
@@ -23,8 +21,6 @@ router.get('/test', (req, res) => {
     msg: 'profile works',
   });
 });
-
-
 
 // @route   POST api/profile
 // @desc    Create or edit user profile
@@ -86,7 +82,6 @@ router.post(
   }
 );
 
-
 // @route : /api/profile/
 // @desc: get current user profile (GET)
 // @access: private
@@ -96,11 +91,11 @@ router.get(
   (req, res) => {
     const errors = {};
 
-    Profile.findOne({ user: req.body.id })
+    Profile.findOne({ user: req.user.id })
       .populate('user', ['name', 'avatar'])
       .then(profile => {
         if (!profile) {
-          errors.noprofile = 'There is no such profile';
+          errors.noprofile = 'There is no profile for this user';
           return res.status(404).json(errors);
         }
         res.json(profile);
@@ -108,9 +103,6 @@ router.get(
       .catch(err => res.status(404).json(err));
   }
 );
-
-
-
 
 // @route     /api/profile/handle/:handle
 // @desc      get profile by handle (GET)
@@ -132,9 +124,6 @@ router.get('/handle/:handle', (req, res) => {
     .catch(err => res.status(404).json({ msg: 'Promise execution error' }));
 });
 
-
-
-
 // @route     /api/profile/user/:user_id
 // @desc      get profile by user id (GET)
 // @access    public
@@ -154,8 +143,6 @@ router.get('/user/:user_id', (req, res) => {
     })
     .catch(err => res.status(404).json({ msg: 'Promise execution error' }));
 });
-
-
 
 // @route     /api/profile/education
 // @desc      add educaton to profile
@@ -189,9 +176,6 @@ router.post(
       .catch(err => res.status(404).json({ msg: 'Promise execution error' }));
   }
 );
-
-
-
 
 // @route     /api/profile/experience
 // @desc      add experience to profile
@@ -228,9 +212,6 @@ router.post(
   }
 );
 
-
-
-
 // @route     /api/profile/all
 // @desc      show all profiles
 // @access    public
@@ -246,9 +227,6 @@ router.get('/all', (req, res) => {
       res.json(profiles);
     });
 });
-
-
-
 
 // @route     /api/profile/experience/:exp_id
 // @desc      Delete selected experience record
@@ -285,9 +263,6 @@ router.delete(
       });
   }
 );
-
-
-
 
 // @route     /api/profile/experience/:edu_id
 // @desc      Delete selected education record
