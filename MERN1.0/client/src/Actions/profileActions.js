@@ -34,7 +34,6 @@ export const createProfile = (profileData, history) => dispatch => {
 };
 
 //Delete account
-
 export const deleteAccount = () => dispacth => {
   if(window.confirm('Are you user, this can NOT be undone.')){
     axios.delete('/api/profile')

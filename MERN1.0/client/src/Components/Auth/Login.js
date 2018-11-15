@@ -62,7 +62,7 @@ class Login extends Component {
                   placeholder={'Email Address'}
                   onChange={this.handleChange}
                   value={this.state.email}
-                  autoComplete={'name'}
+                  autoComplete={'email'}
                   error={errors.email}
                 />
 
