@@ -35,6 +35,7 @@ class CreateProfile extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
@@ -186,7 +187,7 @@ class CreateProfile extends Component {
                   value={this.state.location}
                   onChange={this.onChange}
                   error={errors.location}
-                  info="City or city & state suggested (eg. Boston, MA)"
+                  info="City or city & state suggested (eg. Delhi, IN)"
                 />
                 <TextFieldGroup
                   placeholder="* Skills"
