@@ -1,5 +1,11 @@
-import axios from "axios";
-import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER } from "./types";
+import axios from 'axios';
+import {
+  GET_PROFILE,
+  PROFILE_LOADING,
+  CLEAR_CURRENT_PROFILE,
+  GET_ERRORS,
+  SET_CURRENT_USER,
+} from './types';
 
 ///Get current profile
 export const getCurrentProfile = () => dispacth => {
@@ -9,13 +15,13 @@ export const getCurrentProfile = () => dispacth => {
     .then(res => {
       dispacth({
         type: GET_PROFILE,
-        payload: res.data
+        payload: res.data,
       });
     })
     .catch(err => {
       dispacth({
         type: GET_PROFILE,
-        payload: {}
+        payload: {},
       });
     });
 };
@@ -28,36 +34,54 @@ export const createProfile = (profileData, history) => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.response.data,
+      })
+    );
+};
+
+//Add experience
+export const addExperience = (expData, history) => dispacth => {
+  axios
+    .post('/api/profile/experience', expData)
+    .then(res => history.push('/dashboard'))
+    .catch(err =>
+      dispacth({
+        type: GET_ERRORS,
+        payload: err.response.data,
       })
     );
 };
 
 //Delete account
 export const deleteAccount = () => dispacth => {
-  if(window.confirm('Are you user, this can NOT be undone.')){
-    axios.delete('/api/profile')
-    .then(res => dispacth({
-      type: SET_CURRENT_USER,
-      payload: {}
-    }))
-    .catch(err => dispacth({
-      type: GET_ERRORS,
-      payload: err.response.data
-    }))
+  if (window.confirm('Are you user, this can NOT be undone.')) {
+    axios
+      .delete('/api/profile')
+      .then(res =>
+        dispacth({
+          type: SET_CURRENT_USER,
+          payload: {},
+        })
+      )
+      .catch(err =>
+        dispacth({
+          type: GET_ERRORS,
+          payload: err.response.data,
+        })
+      );
   }
-}
+};
 
 //Profile Loading
 export const setProfileLoading = () => {
   return {
-    type: PROFILE_LOADING
+    type: PROFILE_LOADING,
   };
 };
 
 //Remove current user
 export const clearCurrentProfile = () => {
   return {
-    type: CLEAR_CURRENT_PROFILE
+    type: CLEAR_CURRENT_PROFILE,
   };
 };

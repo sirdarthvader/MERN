@@ -184,14 +184,13 @@ router.post(
   '/experience',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    //Input validation
-    // const { errors, isValid } = validateEducationInput(req.body);
-    //   // Check Validation
-    //   if (!isValid) {
-    //     // Return any errors with 400 status
-    //     return res.status(400).json(errors);
-    //   }
-    const errors = {};
+    // Input validation
+    const { errors, isValid } = validateExperienceInput(req.body);
+      // Check Validation
+      if (!isValid) {
+        // Return any errors with 400 status
+        return res.status(400).json(errors);
+      }
     Profile.findOne({ user: req.user.id })
       .then(profile => {
         const newExp = {
