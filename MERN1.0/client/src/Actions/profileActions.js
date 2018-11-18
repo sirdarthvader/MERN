@@ -55,7 +55,7 @@ export const addExperience = (expData, history) => dispacth => {
 //Add education
 export const addEducation = (expData, history) => dispacth => {
   axios
-    .post('/api/profile/experience', expData)
+    .post('/api/profile/education', expData)
     .then(res => history.push('/dashboard'))
     .catch(err =>
       dispacth({
