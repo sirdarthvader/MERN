@@ -47,3 +47,13 @@ img {
 .form-control::placeholder {
   color: #bbb !important;
 }
+
+@media(min-width: 800px) {
+  .btn {
+    min-width: 100px;
+  }
+}
+
+.show-education {
+  margin-top: 30px;
+}

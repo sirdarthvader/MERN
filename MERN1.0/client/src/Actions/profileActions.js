@@ -65,6 +65,42 @@ export const addEducation = (expData, history) => dispacth => {
     );
 };
 
+//Delete experience
+export const deleteExperience = id => dispacth => {
+  axios
+    .delete(`/api/profile/experience/${id}`)
+    .then(res =>
+      dispacth({
+        type: GET_PROFILE,
+        payload: res.data,
+      })
+    )
+    .catch(err =>
+      dispacth({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
+};
+
+//Delete education
+export const deleteEducation = id => dispacth => {
+  axios
+    .delete(`/api/profile/education/${id}`)
+    .then(res =>
+      dispacth({
+        type: GET_PROFILE,
+        payload: res.data,
+      })
+    )
+    .catch(err =>
+      dispacth({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
+};
+
 //Delete account
 export const deleteAccount = () => dispacth => {
   if (window.confirm('Are you user, this can NOT be undone.')) {

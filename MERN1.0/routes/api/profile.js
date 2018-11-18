@@ -265,34 +265,23 @@ router.delete(
 // @desc      Delete selected education record
 // @access    private
 router.delete(
-  '/education/:edu_id',
+  '/experience/:exp_id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const errors = {};
     Profile.findOne({ user: req.user.id })
       .then(profile => {
-        const remInd = profile.education
+        // Get remove index
+        const removeIndex = profile.experience
           .map(item => item.id)
-          .indexOf(req.params.edu_id);
+          .indexOf(req.params.exp_id);
 
-        profile.education.splice(remInd, 1);
+        // Splice out of array
+        profile.experience.splice(removeIndex, 1);
 
-        profile
-          .save()
-          .then(profile => {
-            res.json(profile);
-          })
-          .catch(err => {
-            res
-              .status(400)
-              .json({ msg: 'Promise execution error inside collection level' });
-          });
+        // Save
+        profile.save().then(profile => res.json(profile));
       })
-      .catch(err => {
-        res
-          .status(400)
-          .json({ msg: 'Promise execution error on collection level' });
-      });
+      .catch(err => res.status(404).json(err));
   }
 );
 
