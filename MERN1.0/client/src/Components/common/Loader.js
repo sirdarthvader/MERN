@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 function Loader() {
   return (
-    <div>
-      loading...
+    <div className='loader'>
+      
     </div>
   )
 }

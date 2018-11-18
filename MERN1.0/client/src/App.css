@@ -47,3 +47,7 @@ img {
 .form-control::placeholder {
   color: #bbb !important;
 }
+
+.loader {
+  background: url('./img/loader.png');
+}
