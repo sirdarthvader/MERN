@@ -20,7 +20,6 @@ class AddEducation extends Component {
       description: '',
       errors: {}
     };
-
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onCheck = this.onCheck.bind(this);
