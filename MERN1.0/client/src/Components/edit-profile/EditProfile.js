@@ -7,6 +7,7 @@ import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import InputGroup from '../common/InputGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import {createProfile, getCurrentProfile} from '../../Actions/profileActions';
+import isEmpty from '../../validations/is-empty';
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -39,6 +40,43 @@ class CreateProfile extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
+    }
+
+    if(nextProps.profile.profile) {
+      
+      const profile = nextProps.profile.profile;
+      //bring skills and turn into an array
+      const skillsCSV = profile.skills.join(',');
+      //check for empty value and make them empty string
+      profile.company = !isEmpty(profile.company) ? profile.company : '';
+      profile.location = !isEmpty(profile.location) ? profile.location : '';
+      profile.website = !isEmpty(profile.website) ? profile.website : '';
+      profile.githubusername = !isEmpty(profile.githubusername) ? profile.githubusername : '';
+      profile.bio = !isEmpty(profile.bio) ? profile.bio : '';
+      profile.social = !isEmpty(profile.social) ? profile.social : {};
+      profile.facebook = !isEmpty(profile.social.facebook) ? profile.social.facebook : '';
+      profile.linkedin = !isEmpty(profile.social.linkedin) ? profile.social.linkedin : '';
+      profile.twitter = !isEmpty(profile.social.twitter) ? profile.social.twitter : '';
+      profile.instagram = !isEmpty(profile.social.instagram) ? profile.social.instagram : '';
+      profile.youtube = !isEmpty(profile.social.youtube) ? profile.social.youtube : '';
+
+      //set component state field value
+      this.setState({
+        handle: profile.handle,
+        company: profile.company,
+        website: profile.website,
+        location: profile.location,
+        status: profile.status,
+        skills: skillsCSV,
+        githubusername: profile.githubusername,
+        bio: profile.bio,
+        twitter: profile.twitter,
+        facebook: profile.facebook,
+        linkedin: profile.linkedin,
+        youtube: profile.youtube,
+        instagram: profile.instagram,
+      })
+
     }
   }
 
