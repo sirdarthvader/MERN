@@ -41,7 +41,7 @@ class AddExperience extends Component {
   }
 
   onChange(e) {
-    this.setState({ [e.target.name]: e.taregt.value });
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   onCheck(e) {

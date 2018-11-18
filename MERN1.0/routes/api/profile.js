@@ -214,7 +214,6 @@ router.post(
 // @route     /api/profile/all
 // @desc      show all profiles
 // @access    public
-
 router.get('/all', (req, res) => {
   Profile.find()
     .populate('user', ['name', 'avatar'])
