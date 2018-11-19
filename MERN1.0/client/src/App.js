@@ -20,7 +20,7 @@ import CreateProfile from './Components/create-profile/CreateProfile';
 import EditProfile from './Components/edit-profile/EditProfile';
 import AddExperience from './Components/add-credential/AddExperience'
 import AddEducation from './Components/add-credential/AddEducation';
-import Profiles from './Components/profile/Profiles';
+import Profiles from './Components/profiles/Profiles';
 
 
 import './App.css';

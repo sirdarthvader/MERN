@@ -102,6 +102,24 @@ export const getProfiles = () => dispacth => {
     );
 };
 
+//Get profile by handle
+export const getProfileByHandle = (handle) => dispacth => {
+  axios
+    .get(`/api/profile/handle/${handle}`)
+    .then(res =>
+      dispacth({
+        type: GET_PROFILE,
+        payload: res.data,
+      })
+    )
+    .catch(err =>
+      dispacth({
+        type: GET_PROFILE,
+        payload: null,
+      })
+    );
+};
+
 //Delete education
 export const deleteEducation = id => dispacth => {
   axios
