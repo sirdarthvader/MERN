@@ -53,6 +53,11 @@ img {
     min-width: 100px;
   }
 }
+@media(min-width: 600px) {
+  .skill{
+    display: block !important;
+  }
+}
 
 .show-education {
   margin-top: 30px;

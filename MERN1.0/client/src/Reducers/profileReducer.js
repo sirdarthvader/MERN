@@ -1,4 +1,4 @@
-import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE } from "../Actions/types";
+import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_PROFILES } from "../Actions/types";
 
 const initialState = {
   profile: null,
@@ -19,6 +19,12 @@ export default function(state = initialState, action) {
         loading: false,
         profile: action.payload
       };
+    case GET_PROFILES:
+      return {
+        ...state,
+        profiles: action.payload,
+        loading: false
+      }
     case CLEAR_CURRENT_PROFILE: 
     return {
       ...state,

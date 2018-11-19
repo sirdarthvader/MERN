@@ -5,6 +5,7 @@ import {
   CLEAR_CURRENT_PROFILE,
   GET_ERRORS,
   SET_CURRENT_USER,
+  GET_PROFILES,
 } from './types';
 
 ///Get current profile
@@ -79,6 +80,24 @@ export const deleteExperience = id => dispacth => {
       dispacth({
         type: GET_ERRORS,
         payload: err.response.data,
+      })
+    );
+};
+
+//Get all profiles
+export const getProfiles = () => dispacth => {
+  axios
+    .get('/api/profile/all')
+    .then(res =>
+      dispacth({
+        type: GET_PROFILES,
+        payload: res.data,
+      })
+    )
+    .catch(err =>
+      dispacth({
+        type: GET_PROFILES,
+        payload: null,
       })
     );
 };
