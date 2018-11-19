@@ -103,21 +103,22 @@ export const getProfiles = () => dispacth => {
 };
 
 //Get profile by handle
-export const getProfileByHandle = (handle) => dispacth => {
+export const getUserByHandle = (handle) => dispacth => {
+  dispacth(setProfileLoading());
   axios
     .get(`/api/profile/handle/${handle}`)
-    .then(res =>
+    .then(res => {
       dispacth({
         type: GET_PROFILE,
         payload: res.data,
-      })
-    )
-    .catch(err =>
+      });
+    })
+    .catch(err => {
       dispacth({
         type: GET_PROFILE,
         payload: null,
-      })
-    );
+      });
+    });
 };
 
 //Delete education

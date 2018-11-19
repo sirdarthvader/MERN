@@ -33,7 +33,7 @@ class Dashboard extends Component {
             <p className="lead text-muted">
               {' '}
               Welcome{' '}
-              <Link to={`/profile/handle/${profile.handle}`}>{user.name}</Link>
+              <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
             </p>
             <ProfileAxns />
             <Experience exp={profile.experience} />
