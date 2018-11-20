@@ -23,7 +23,7 @@ class ProfileHeader extends Component {
                 <p className="lead text-center">
                   {profile.status} {isEmpty(profile.company) ? null : (<span>at {profile.company}</span>)}
                 </p>
-                <p>{isEmpty(profile.location) ? null : <p>{profile.location}</p>}</p>
+                {isEmpty(profile.location) ? null : <p>{profile.location}</p>}
                 <p>
                   {isEmpty(profile.website) ? null : (<a className="text-white p-2" href={profile.website} target='_blank'>
                     <i className="fas fa-globe fa-2x" />

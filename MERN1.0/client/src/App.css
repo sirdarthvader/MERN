@@ -62,3 +62,13 @@ img {
 .show-education {
   margin-top: 30px;
 }
+.fourByfour{
+  font-family: 'Leckerli One', cursive;
+  font-weight: bold;
+}
+
+/* @media(min-width: 600px) {
+  .not-found{
+    width: 380px;
+  }
+} */

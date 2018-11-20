@@ -22,6 +22,7 @@ import AddExperience from './Components/add-credential/AddExperience'
 import AddEducation from './Components/add-credential/AddEducation';
 import Profiles from './Components/profiles/Profiles';
 import Profile from './Components/profile/Profile';
+import NotFound from './Components/common/NotFound';
 
 
 import './App.css';
@@ -90,7 +91,9 @@ class App extends Component {
                 component={AddEducation}
                 />
               </Switch>
+              <Route exact path="/not-found" component={NotFound} />
             </div>
+
             <Footer />
           </div>
         </Router>
