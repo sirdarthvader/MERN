@@ -16,7 +16,7 @@ const ValidatePostInput = require('../../Validator/post')
 
 
 // @route   api/posts/test
-// @desc    for testing he prfole route
+// @desc    for testing the prfole route
 // @access  public
 router.get('/test', (req, res) => {
   res.json({
@@ -25,7 +25,7 @@ router.get('/test', (req, res) => {
 })
 
 // @route   api/posts/
-// @desc    for ceating post for logged in user
+// @desc    ceating post for logged in user
 // @access  private
 router.post(
   '/',
@@ -39,7 +39,7 @@ router.post(
     const newPost = new Post({
       text: req.body.text,
       name: req.body.name,
-      avatar: req.body.avatar,
+      avatar: req.user.avatar,
       user: req.user.id
     })
 
@@ -55,7 +55,7 @@ router.post(
 )
 
 // @route   api/posts/
-// @desc    get all post from all the users
+// @desc    get posts from all users
 // @access  public
 router.get('/', (req, res) => {
   Post.find()
@@ -186,7 +186,7 @@ router.post('/comment/:id', passport.authenticate('jwt,', {session: false}), (re
 
 
 // @route   api/posts/comment/:id/:comment_id
-// @desc    Delete a comment from a post
+// @desc    Delete a comment from the post
 // @access  private
 router.delete('comment/:id/:comment_id', passport.authenticate('jwt', {session: false}), (req, res) => {
   Profile.findOne({user: req.user.id})

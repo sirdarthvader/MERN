@@ -16,7 +16,7 @@ const port = 5000;
 
 // Route Setup...
 const users = require('./routes/api/users');
-const posts = require('./routes/api/posts');
+const post = require('./routes/api/post');
 const profile = require('./routes/api/profile');
 
 //config DB..
@@ -37,7 +37,7 @@ require('./config/passport')(passport);
 //Route Setup...
 app.use('/api/users', users);
 app.use('/api/profile', profile);
-app.use('/api/posts', posts);
+app.use('/api/post', post);
 
 //Route Operations...
 app.get('/', (req, res) => {
