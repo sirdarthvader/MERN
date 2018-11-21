@@ -41,7 +41,7 @@ router.post('/register', (req, res) => {
     if (user) {
       res.status(400).json({ email: 'A user with this email already exists' });
     } else {
-      const avatar = `https://api.adorable.io/avatars/230/${req.body.email}.png`;
+      const avatar = `https://robohash.org/${req.body.email}`;
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
