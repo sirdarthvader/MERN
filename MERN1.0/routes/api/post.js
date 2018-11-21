@@ -15,7 +15,7 @@ const ValidatePostInput = require('../../Validator/post')
 
 
 
-// @route   api/posts/test
+// @route   api/post/test
 // @desc    for testing the prfole route
 // @access  public
 router.get('/test', (req, res) => {
@@ -24,37 +24,32 @@ router.get('/test', (req, res) => {
   })
 })
 
-// @route   api/posts/
+// @route   api/post/
 // @desc    ceating post for logged in user
 // @access  private
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { errors, isVald } = ValidatePostInput(req.body)
-    if (!isVald) {
-      res.status(400).json(errors)
+    const { errors, isValid } = ValidatePostInput(req.body);
+    // Check Validation
+    if (!isValid) {
+      // If any errors, send 400 with errors object
+      return res.status(400).json(errors);
     }
-
+    //Object containing new post data
     const newPost = new Post({
       text: req.body.text,
       name: req.body.name,
-      avatar: req.user.avatar,
+      avatar: req.body.avatar,
       user: req.user.id
-    })
-
-    newPost
-      .save()
-      .then(post => {
-        res.json(post)
-      })
-      .catch(err => {
-        res.status(400).json({ msg: 'Promise execution error' })
-      })
+    });
+    //Save to DB
+    newPost.save().then(post => res.json(post));
   }
-)
+);
 
-// @route   api/posts/
+// @route   api/post/
 // @desc    get posts from all users
 // @access  public
 router.get('/', (req, res) => {
@@ -66,7 +61,7 @@ router.get('/', (req, res) => {
 
 
 
-// @route   api/posts/:id
+// @route   api/post/:id
 // @desc    get a specific post by id
 // @access  public
 router.get('/:id', (req, res) => {
@@ -78,7 +73,7 @@ router.get('/:id', (req, res) => {
 })
 
 
-// @route   api/posts/:id
+// @route   api/post/:id
 // @desc    delete posts from a specific user
 // @access  private
 router.delete(
@@ -101,59 +96,71 @@ router.delete(
   }
 )
 
-// @route   api/posts/like/:id
+// @route   api/post/like/:id
 // @desc    like a post by id
 // @access  private
-router.post('/like/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Profile.findOne({user: req.user.id})
-    .then(profile => {
+router.post(
+  '/like/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id }).then(profile => {
       Post.findById(req.params.id)
         .then(post => {
-          if(post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
-           return res.status(400).json({alreadyliked: "You have already liked the post"})
+          if (
+            post.likes.filter(like => like.user.toString() === req.user.id)
+              .length > 0
+          ) {
+            return res
+              .status(400)
+              .json({ alreadyliked: 'User already liked this post' });
           }
-          //Add user in likes array
-          post.likes.unshift({user: req.user.id});
-          
-          //Save in database
+
+          // Add user id to likes array
+          post.likes.unshift({ user: req.user.id });
+
           post.save().then(post => res.json(post));
         })
-        .catch(err => {
-          res.status(404).json({msg: "This post does not exist"})
-        })
-    })
-    .catch(err => {
-      res.status(404).json({msg: "No user found for this requested id"})
-    })
-})
+        .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+    });
+  }
+);
 
 
 
-// @route   api/posts/unlike/:id
+// @route   api/post/unlike/:id
 // @desc    like a post by id
 // @access  private
-router.get('/unlike/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Profile.findOne({user: req.user.id})
-    .then(profile => {
+router.post(
+  '/unlike/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id }).then(profile => {
       Post.findById(req.params.id)
         .then(post => {
-          //look if the user has liked the post
-          if(post.likes.filter(like => like.user.toString === req.user.id).length === 0) {
-            return res.status(400).json({msg: "You have not yet like the post"})
+          if (
+            post.likes.filter(like => like.user.toString() === req.user.id)
+              .length === 0
+          ) {
+            return res
+              .status(400)
+              .json({ notliked: 'You have not yet liked this post' });
           }
-          //Select the user index to remove from the likes array
-          const remInd = post.likes
-            .map(item => item.user.toString)
+
+          // Get remove index
+          const removeIndex = post.likes
+            .map(item => item.user.toString())
             .indexOf(req.user.id);
 
-          //Splice out of likes array
-          post.likes.splice(remInd, 1);
+          // Splice out of array
+          post.likes.splice(removeIndex, 1);
 
-          //Save to database
-          post.save().then(res.json(post))
+          // Save
+          post.save().then(post => res.json(post));
         })
-    })
-})
+        .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+    });
+  }
+);
 
 
 
