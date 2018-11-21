@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 class PostItem extends Component {
 
     OnDeleteClick(e) {
-        e.preventDefault();
+        
         console.log('clicked');
     }
 
