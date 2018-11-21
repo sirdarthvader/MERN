@@ -6,7 +6,7 @@ import Loader from "../common/Loader";
 import PostFeed from './PostFeed';
 import { getPost } from '../../Actions/postsAction';
 
-class Post extends Component {
+class Posts extends Component {
 componentDidMount() {
     this.props.getPost()
 }
@@ -34,7 +34,7 @@ componentDidMount() {
   }
 }
 
-Post.propTypes = { 
+Posts.propTypes = { 
     post: PropTypes.object.isRequired,
     getPost: PropTypes.func.isRequired
 }
@@ -43,4 +43,4 @@ const mapStateToProps = state => ({
     post: state.post
 })
 
-export default connect(mapStateToProps, {getPost}) (Post);
+export default connect(mapStateToProps, {getPost}) (Posts);

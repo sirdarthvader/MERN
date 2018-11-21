@@ -22,7 +22,8 @@ import AddExperience from './Components/add-credential/AddExperience'
 import AddEducation from './Components/add-credential/AddEducation';
 import Profiles from './Components/profiles/Profiles';
 import Profile from './Components/profile/Profile';
-import Post from './Components/posts/Post';
+import Posts from './Components/posts/Posts';
+import Post from './Components/post/Post';
 import NotFound from './Components/common/NotFound';
 
 
@@ -97,6 +98,13 @@ class App extends Component {
                 <PrivateRoute 
                 exact 
                 path='/feed'
+                component={Posts}
+                />
+              </Switch>
+              <Switch>
+                <PrivateRoute 
+                exact 
+                path='/post/:id'
                 component={Post}
                 />
               </Switch>

@@ -23,8 +23,8 @@ export const addPost = postData => dispatch => {
     )
     .catch(err =>
       dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
+        type: GET_POST,
+        payload: null
       })
     );
 };
@@ -91,6 +91,25 @@ export const removeLike = id => dispatch => {
         payload: err.response.data
       })
     );
+};
+
+//Show Single Post
+export const getSinglePost = (id) => dispatch => {
+  dispatch(setPostLoading());
+  axios
+    .get(`/api/post/${id}`)
+    .then(res => {
+      dispatch({
+        type: GET_POST,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_POSTS,
+        payload: err.response.data
+      });
+    });
 };
 
 //Set post Loading
