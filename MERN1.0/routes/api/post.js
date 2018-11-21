@@ -65,12 +65,12 @@ router.get('/', (req, res) => {
 // @desc    get a specific post by id
 // @access  public
 router.get('/:id', (req, res) => {
-  Post.find()
-    .then(posts => {
-      res.json(posts)
-    })
-    .catch(res.status(404).json('msg: No post exists for this id'))
-})
+  Post.findById(req.params.id)
+    .then(post => res.json(post))
+    .catch(err =>
+      res.status(404).json({ nopostfound: 'No post found with that ID' })
+    );
+});
 
 
 // @route   api/post/:id
