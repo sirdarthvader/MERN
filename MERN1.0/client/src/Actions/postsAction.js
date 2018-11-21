@@ -1,11 +1,11 @@
-import { GET_ERRORS, ADD_POST } from './types';
+import { GET_ERRORS, ADD_POST, GET_POSTS, POST_LOADING, GET_POST } from './types';
 
 import axios from 'axios';
 
 //Add post
-export default (addPost = postData = dispatch => {
+export const addPost = postData => dispatch => {
   axios
-    .post('/post/add/', postData)
+    .post('/api/post/', postData)
     .then(res => {
       dispatch({
         type: ADD_POST,
@@ -18,4 +18,31 @@ export default (addPost = postData = dispatch => {
         payload: err.response.data,
       });
     });
-});
+};
+
+//Fetch Post
+export const getPost = () => dispatch => {
+  dispatch(setPostLoading());
+  axios
+    .get('/api/post/')
+    .then(res => {
+      dispatch({
+        type: GET_POSTS,
+        payload: res.data,
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_POSTS,
+        payload: err.response.data,
+      });
+    });
+};
+
+//Set post Loading
+
+export const setPostLoading = () => {
+  return {
+    type: POST_LOADING
+  }
+}
