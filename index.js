@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //Port Setup....
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // Route Setup...
 const users = require('./routes/api/users');
