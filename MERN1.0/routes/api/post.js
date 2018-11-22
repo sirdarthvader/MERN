@@ -168,57 +168,70 @@ router.post(
 // @route   api/posts/comment/:id
 // @desc    Add comment to a post
 // @access  private
-router.post('/comment/:id', passport.authenticate('jwt,', {session: false}), (req, res) => {
-  Profile.findById(req.params.id)
-    .then(post => {
-      const newComment = {
-        text: res.body.text,
-        name: res.body.text,
-        avatar: res.body.name,
-        user: req.user.id
-      };
+router.post(
+  '/comment/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { errors, isValid } = ValidatePostInput(req.body);
 
-      //Add to comments array
-      post.comments.unshift(newComment);
+    // Check Validation
+    if (!isValid) {
+      // If any errors, send 400 with errors object
+      return res.status(400).json(errors);
+    }
 
-      //Save to database
-      post.save().then(res.json(post))
-    })
-    .catch(err => {
-      res.status(404).json({msg: "there is no such post for the given id"})
-    })
-})
+    Post.findById(req.params.id)
+      .then(post => {
+        const newComment = {
+          text: req.body.text,
+          name: req.body.name,
+          avatar: req.body.avatar,
+          user: req.user.id
+        };
+
+        // Add to comments array
+        post.comments.unshift(newComment);
+
+        // Save
+        post.save().then(post => res.json(post));
+      })
+      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+  }
+);
 
 
 // @route   api/posts/comment/:id/:comment_id
 // @desc    Delete a comment from the post
 // @access  private
-router.delete('comment/:id/:comment_id', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Profile.findOne({user: req.user.id})
-    .then(profile => {
-      Post.findById(req.params.id)
-        .then(post => {
-          //check to see if the comment exits
-          if(post.comments.filter(comment => comment._id.toString() === req.params.comment_id).length === 0) {
-            return res.status(401).json({msg: "No such comment exists"})
-          }
-          //Get index to remove
-          const remInd = post.comments
+router.delete(
+  '/comment/:id/:comment_id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Post.findById(req.params.id)
+      .then(post => {
+        // Check to see if comment exists
+        if (
+          post.comments.filter(
+            comment => comment._id.toString() === req.params.comment_id
+          ).length === 0
+        ) {
+          return res
+            .status(404)
+            .json({ commentnotexists: 'Comment does not exist' });
+        }
+
+        // Get remove index
+        const removeIndex = post.comments
           .map(item => item._id.toString())
           .indexOf(req.params.comment_id);
+          
+        // Splice comment out of array
+        post.comments.splice(removeIndex, 1);
+        post.save().then(post => res.json(post));
+      })
+      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+  }
+);
 
-          //Splice out of the comments array
-          posts.comments.splice(remInd, 1);
 
-          //save to database
-          posts.save().then(post => res.json(post))
-        })
-        .catch(err => {
-          res.status(400).json({msg: "there is no such post"})
-        })
-    })
-    .catch(err => {
-      res.status(404).json({msg: "There is no such profile found"})
-    })
-})
 module.exports = router

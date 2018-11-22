@@ -112,6 +112,42 @@ export const getSinglePost = (id) => dispatch => {
     });
 };
 
+// Add Comment
+export const addComment = (postId, newComment) => dispatch => {
+  axios
+    .post(`/api/post/comment/${postId}`, newComment)
+    .then(res =>
+      dispatch({
+        type: GET_POST,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_POST,
+        payload: null
+      })
+    );
+};
+
+// Delete Comment
+export const deleteComment = (postId, commentId) => dispatch => {
+  axios
+    .delete(`/api/post/comment/${postId}/${commentId}`)
+    .then(res =>
+      dispatch({
+        type: GET_POST,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_POST,
+        payload: null
+      })
+    );
+};
+
 //Set post Loading
 
 export const setPostLoading = () => {
