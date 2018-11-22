@@ -29,7 +29,7 @@ class Navbar extends Component {
         </li>
 
         <li className="nav-item">
-          <a href="" className="nav-link" onClick={this.onLogout.bind(this)}>
+          <a href='#' className="nav-link" onClick={this.onLogout.bind(this)}>
             <img
               src={user.avatar}
               alt={user.name}

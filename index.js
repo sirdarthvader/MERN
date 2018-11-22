@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const cors = require('cors');
+const path = require('path');
 
 app.use(cors());
 
@@ -39,11 +40,21 @@ app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use('/api/post', post);
 
-if(process.env.NODE_ENV === 'production'){
-  app.use(express.static('client/build'))
+
+//Heroku setup
+// if(process.env.NODE_ENV === 'production'){
+//   app.use(express.static('client/build'))
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+//   });
+// }
+
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')))
+  //
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
+    res.sendfile(path.join(__dirname = 'client/build/index.html'))
+  })
 }
 
 //Route Operations...
