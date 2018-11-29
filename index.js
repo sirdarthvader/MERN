@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const cors = require('cors');
 const path = require('path');
-const text = 1000;
+
 
 app.use(cors());
 
