@@ -33,7 +33,7 @@ class Education extends Component {
     ));
     return (
       <div className="show-education">
-        <h1 className="lead">Education Credential</h1>
+        <h1 className="lead">Education</h1>
         <div className="m-auto">{education}</div>
       </div>
     );
