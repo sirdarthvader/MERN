@@ -40,6 +40,19 @@ export const createProfile = (profileData, history) => dispatch => {
     );
 };
 
+//Add Project
+export const addProject = (projectInfo, history) => dispacth => {
+  axios
+    .post('/api/profile/projects/add', projectInfo)
+    .then(res => history.push('/dashboard'))
+    .catch(err =>
+      dispacth({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
+};
+
 //Add experience
 export const addExperience = (expData, history) => dispacth => {
   axios
