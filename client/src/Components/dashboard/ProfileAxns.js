@@ -16,6 +16,10 @@ const ProfileAxns = () => {
           <i className="fas fa-graduation-cap text-info mr-1" />
           Add Education
         </Link>
+        <Link to="/add-project" className="btn btn-dark mb-2">
+          <i className="fas fa-graduation-cap text-info ml-1" />
+          Add Project
+        </Link>
       </div>
     </div>
   );

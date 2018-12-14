@@ -97,6 +97,13 @@ class App extends Component {
               <Switch>
                 <PrivateRoute 
                 exact 
+                path='/add-project'
+                component={AddProject}
+                />
+              </Switch>
+              <Switch>
+                <PrivateRoute 
+                exact 
                 path='/feed'
                 component={Posts}
                 />
