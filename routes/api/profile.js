@@ -12,6 +12,7 @@ const User = require('../../models/User');
 const validateProfileInput = require('../../Validator/profile');
 const validateEducationInput = require('../../Validator/education');
 const validateExperienceInput = require('../../Validator/experience');
+const validateProjectInput = require('../../Validator/projects');
 
 // @route : /api/profile/test
 // @desc: used for testing the profile route
@@ -307,12 +308,12 @@ router.post('/projects/add',
 passport.authenticate('jwt', {session: false}),
 (req, res) => {
   //Input validation
-  // const { errors, isValid } = validateExperienceInput(req.body);
-  //     // Check Validation
-  //     if (!isValid) {
-  //       // Return any errors with 400 status
-  //       return res.status(400).json(errors);
-  //     }
+  const { errors, isValid } = validateProjectInput(req.body);
+      // Check Validation
+      if (!isValid) {
+        // Return any errors with 400 status
+        return res.status(400).json(errors);
+      }
   Profile.findOne({user: req.user.id})
   .then(profile =>{
     const newProject  = {
