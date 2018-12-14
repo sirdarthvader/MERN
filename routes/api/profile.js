@@ -300,4 +300,33 @@ router.delete(
 );
 
 
+// @route : /api/profile/project/add
+// @desc: To add projects
+// @access: private
+router.post('/projects/add',
+passport.authenticate('jwt', {session: false}),
+(req, res) => {
+  //Input validation
+  // const { errors, isValid } = validateExperienceInput(req.body);
+  //     // Check Validation
+  //     if (!isValid) {
+  //       // Return any errors with 400 status
+  //       return res.status(400).json(errors);
+  //     }
+  Profile.findOne({user: req.user.id})
+  .then(profile =>{
+    const newProject  = {
+      name: req.body.name,
+      projecturl: req.body.projecturl,
+      githuburl: req.body.githuburl,
+      description: req.body.description
+    };
+    profile.projects.unshift(newProject);
+    profile.save().then(profile => res.json(profile));
+  })
+  .catch(err => {
+    res.status(404).json(err)
+  })
+});
+
 module.exports = router;
