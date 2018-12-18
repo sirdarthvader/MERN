@@ -12,7 +12,7 @@ const ProfileAxns = () => {
           <i className="fab fa-black-tie text-info mr-1" />
           Add Experience
         </Link>
-        <Link to="/add-education" className="btn btn-dark mb-2">
+        <Link to="/add-education" className="btn btn-dark mb-2 mr-2">
           <i className="fas fa-graduation-cap text-info mr-1" />
           Add Education
         </Link>
