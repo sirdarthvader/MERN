@@ -1,3 +1,6 @@
+/**
+ * import action types fromr the file and set the initial state to be handled by the reducer
+ */
 import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_PROFILES } from "../Actions/types";
 
 const initialState = {
@@ -6,6 +9,13 @@ const initialState = {
   loading: false
 };
 
+
+
+/**
+ * exported funciton, with intial state and action as params
+ * @param {*} state initial state
+ * @param {*} action action dipatched by theaction function
+ */
 export default function(state = initialState, action) {
   switch (action.type) {
     case PROFILE_LOADING:
