@@ -1,5 +1,5 @@
 /**
- * import action types fromr the file and set the initial state to be handled by the reducer
+ * import action types from the file and set the initial state to be handled by the reducer
  */
 import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_PROFILES } from "../Actions/types";
 
@@ -14,7 +14,7 @@ const initialState = {
 /**
  * exported funciton, with intial state and action as params
  * @param {*} state initial state
- * @param {*} action action dipatched by theaction function
+ * @param {*} action action dipatched by the action function
  */
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -35,7 +35,7 @@ export default function(state = initialState, action) {
         profiles: action.payload,
         loading: false
       }
-    case CLEAR_CURRENT_PROFILE: 
+    case CLEAR_CURRENT_PROFILE:
     return {
       ...state,
       profile: null
