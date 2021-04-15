@@ -59,7 +59,7 @@ router.post(
     if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
     if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
     if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
-    Profile.findOne({ user: req.user.id }).then(profile => {
+    Profile.findOne({ user: { $eq: req.user.id} }).then(profile => {
       if (profile) {
         // Update
         Profile.findOneAndUpdate(
@@ -70,7 +70,7 @@ router.post(
       } else {
         // Create
         // Check if handle exists
-        Profile.findOne({ handle: profileFields.handle }).then(profile => {
+        Profile.findOne({ handle: {$eq: profileFields.handle} }).then(profile => {
           if (profile) {
             errors.handle = 'That handle already exists';
             res.status(400).json(errors);
