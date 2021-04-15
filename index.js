@@ -5,6 +5,16 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const cors = require('cors');
 const path = require('path');
+const RateLimit = require('express-rate-limit');
+
+// initialise limiter 
+const limiter = new RateLimit({
+  windowMs: 1*60*1000, // 1 minute
+  max: 5
+});
+
+// apply rate limiter to all requests
+app.use(limiter);
 
 
 app.use(cors());
@@ -52,7 +62,6 @@ app.use('/api/post', post);
 
 
 //Round 2 deploy
-
 if(process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')))
   //
