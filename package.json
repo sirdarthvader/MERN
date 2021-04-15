@@ -31,7 +31,8 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "react-moment": "^0.8.3",
-    "validator": "^10.4.0"
+    "validator": "^10.4.0",
+    "express-rate-limit": "^5.2.6"
   },
   "devDependencies": {
     "nodemon": "^1.17.3"
