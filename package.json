@@ -17,11 +17,11 @@
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.20.1",
     "bootstrap": "^4.3.1",
     "concurrently": "^3.6.0",
     "cors": "^2.8.4",
-    "express": "^4.16.3",
+    "express": "^4.18.2",
     "gravatar": "^1.6.0",
     "jsonwebtoken": "^8.3.0",
     "moment": "^2.22.2",
